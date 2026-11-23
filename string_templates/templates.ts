@@ -1,15 +1,14 @@
-const buildInfoSnipet= (
-    firstname: string,
-    lastname: string
-)=> {
+import { infoType } from "@/app/types/data";
+
+const buildInfoSnipet= (info: infoType)=> {
     return `
 %----------------------%
 % Title & Contact Info
 %----------------------%
 \\begin{center}
-    {\\LARGE \\textbf{${firstname} ${lastname}}} \\\\[6pt]
-    {\\Large{JobTitle/Position}}\\\\
-    County City, Country PostalCode \\\\
+    {\\LARGE \\textbf{${info.firstname} ${info.lastname}}} \\\\[6pt]
+    {\\Large{${info.jobTitle}}}\\\\
+    ${info.county} ${info.city}, ${info.country} ${info.zipcode} \\\\
     +xxx xx xx xxx xx | +xxx xx xx xxx xx \\\\
     \\href{mailto:email@domain.com}{email@domain.com} \\\\[6pt]
     \\rule{\\textwidth}{0.4pt} % horizontal separation line

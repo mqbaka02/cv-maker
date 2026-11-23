@@ -5,7 +5,7 @@ export default function useValues<T extends Record<string, any>>(initialValues: 
     const [values, setValues]= useState<T>(initialValues);
 
     const setter= Object.fromEntries(
-        Object.keys(values).map((key) => [
+        Object.keys(values).map((key: keyof T) => [
             key,
             (value: T[typeof key]) => {
                 setValues(v=> ({...v, [key]: value}));

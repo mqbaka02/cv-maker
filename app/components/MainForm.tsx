@@ -7,15 +7,17 @@ import compileLatex from "@/latex_commands/compile";
 import save from "@/latex_commands/save";
 import clean from "@/lib/clean";
 import { useNotifications } from "../context/useNotificationContext";
+import { valuesType } from "../types/data";
 
-type valuesType= {
-    firstname: string;
-    lastname: string;
-};
 
 const initialValues: valuesType= {
     firstname: "",
     lastname: "",
+    jobTitle: "",
+    city: "",
+    country: "",
+    county: "",
+    zipcode: ""
 };
 
 export default function MainForm() {
@@ -63,6 +65,7 @@ export default function MainForm() {
         }
     };
     const saveValues = async () => {
+        console.log(values);
         const result = await save(values);
         if (result.success) {
             addNotification({
@@ -91,6 +94,17 @@ export default function MainForm() {
         <div className="flex flex-col md:flex-row gap-1">
             <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" />
             <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" />
+        </div>
+        <div className="flex flex-col md:flex-row gap-1">
+            <Input label="Job Title" value={values.jobTitle} onChange={setter["jobTitle"]} name="jobTitle" />
+        </div>
+        <div className="flex flex-col md:flex-row gap-1">
+            <Input label="Country" value={values.country} onChange={setter["country"]} name="country" />
+        </div>
+        <div className="flex flex-col md:flex-row gap-1">
+            <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" />
+            <Input label="County" value={values.county} onChange={setter["county"]} name="county" />
+            <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" />
         </div>
     </div>;
 };

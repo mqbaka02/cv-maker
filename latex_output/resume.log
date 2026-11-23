@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.10.25)  23 NOV 2026 14:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.10.25)  23 NOV 2026 16:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -244,7 +244,7 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count278
 \l__pdf_internal_box=\box53
 )
-No file resume.aux.
+(/home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/resume.aux)
 \openout1 = `resume.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
@@ -265,6 +265,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
 LaTeX Font Info:    ... okay on input line 30.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 30.
 LaTeX Font Info:    ... okay on input line 30.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -300,8 +301,11 @@ LaTeX Font Info:    ... okay on input line 30.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 30.
+(/home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/resume.out)
+(/home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/resume.out)
 \@outlinefile=\write3
 \openout3 = `resume.out'.
+
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -356,21 +360,14 @@ st/fonts/enc/dvips/base/8r.enc}])
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-Package rerunfilecheck Warning: File `resume.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `resume.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package rerunfilecheck Info: File `resume.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 9692 strings out of 476153
- 150268 string characters out of 5794325
+ 9700 strings out of 476153
+ 150740 string characters out of 5794325
  1941975 words of memory out of 5000000
- 31595 multiletter control sequences out of 15000+600000
+ 31597 multiletter control sequences out of 15000+600000
  569772 words of font info for 51 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  75i,5n,79p,611b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -378,7 +375,7 @@ Here is how much of TeX's memory you used:
 e/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
 Output written on /home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/
-resume.pdf (2 pages, 34100 bytes).
+resume.pdf (2 pages, 34228 bytes).
 PDF statistics:
  42 PDF objects out of 1000 (max. 8388607)
  31 compressed objects within 1 object stream

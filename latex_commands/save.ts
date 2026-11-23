@@ -1,16 +1,12 @@
 "use server";
 
+import { valuesType } from "@/app/types/data";
 import { saveInfo } from "@/lib/saverSnippets";
 
-type dataType= {
-    firstname: string,
-    lastname: string,
-};
-
-export default async function save(data: dataType) {
+export default async function save(data: valuesType) {
     
     try{
-        await saveInfo(data.firstname, data.lastname);
+        await saveInfo(data);
 
         return {success: true, message: "Info have been saved!"};
     } catch (error: any) {
