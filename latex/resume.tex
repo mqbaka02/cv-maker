@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage[margin=0.4in,top=0.3in]{geometry} % reduced margins
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage[scaled]{helvet} % Helvetica font
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{xcolor}
+\pagestyle{empty}
+
+% Compact lists with 2em indent
+\setlist[itemize]{leftmargin=2em, nosep}
+
+\def\Vhrulefill{\leavevmode\leaders\hrule height 1ex depth \dimexpr0.4pt-0.7ex\hfill\kern0pt}
+
+\titlespacing*{\subsection}{0pt}{1em}{0.5em}
+
+% Custom section title with horizontal line
+\newcommand{\sectionline}[1]{%
+  \vspace{3ex} % more space above section
+  \noindent
+  \raisebox{0.4ex}{\textbf{\large #1}}%
+  \hspace{0.5em}%
+  \color{gray}\Vhrulefill
+  \color{black}%
+  \vspace{0ex}
+  
+}
+
+\begin{document}
+
+\input{latex/parts/info}
+
+\input{latex/parts/summary}
+
+\input{latex/parts/skills}
+
+\input{latex/parts/experience}
+
+\input{latex/parts/education}
+
+\input{latex/parts/lang}
+
+\input{latex/parts/portfolio}
+
+\input{latex/parts/ref}
+
+\input{latex/parts/extra}
+
+\end{document}
