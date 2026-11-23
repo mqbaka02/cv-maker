@@ -8,6 +8,8 @@ import save from "@/latex_commands/save";
 import clean from "@/lib/clean";
 import { useNotifications } from "../context/useNotificationContext";
 import { valuesType } from "../types/data";
+import { useState } from "react";
+import { PhoneInput } from "@/components/reui/phone-input";
 
 
 const initialValues: valuesType= {
@@ -17,7 +19,10 @@ const initialValues: valuesType= {
     city: "",
     country: "",
     county: "",
-    zipcode: ""
+    zipcode: "",
+    number1: "",
+    number2: "",
+    email: "",
 };
 
 export default function MainForm() {
@@ -85,6 +90,7 @@ export default function MainForm() {
         }
     };
 
+
     return <div className="flex gap-1 flex-col">
         <div className="flex gap-2">
             <button className="bg-black text-white active:bg-red-500 p-1 px-2 rounded-sm" onClick={compile}>Compile</button>
@@ -105,6 +111,29 @@ export default function MainForm() {
             <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" />
             <Input label="County" value={values.county} onChange={setter["county"]} name="county" />
             <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" />
+        </div>
+        <div className="flex flex-col md:flex-row gap-1 items-stretch">
+            <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/2"} />
+            <div className="flex-col gap-1 flex h-full justify-between">
+                <label htmlFor="phone1" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Primary Phone Number</label>
+                <PhoneInput
+                    value={values.number1}
+                    onChange={setter["number1"]}
+                    id="phone1"
+                    name="phone1"
+                    variant="lg"
+                />
+            </div>
+            <div className="flex-col gap-1 flex h-full justify-between">
+                <label htmlFor="phone2" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Secondary Phone Number</label>
+                <PhoneInput
+                    value={values.number2}
+                    onChange={setter["number2"]}
+                    id="phone2"
+                    name="phone2"
+                    variant="lg"
+                />
+            </div>
         </div>
     </div>;
 };

@@ -9,8 +9,8 @@ const buildInfoSnipet= (info: infoType)=> {
     {\\LARGE \\textbf{${info.firstname} ${info.lastname}}} \\\\[6pt]
     {\\Large{${info.jobTitle}}}\\\\
     ${info.county} ${info.city}, ${info.country} ${info.zipcode} \\\\
-    +xxx xx xx xxx xx | +xxx xx xx xxx xx \\\\
-    \\href{mailto:email@domain.com}{email@domain.com} \\\\[6pt]
+    ${info.number1 || ''} | ${info.number2 || ''} \\\\
+    \\href{mailto:${info.email}}{${info.email}} \\\\[6pt]
     \\rule{\\textwidth}{0.4pt} % horizontal separation line
 \\end{center}
     `;

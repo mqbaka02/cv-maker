@@ -6,6 +6,9 @@ type infoType= {
     city: string;
     county: string;
     zipcode: string;
+    number1?: string;
+    number2?: string;
+    email: string;
 };
 
 type valuesType= infoType
