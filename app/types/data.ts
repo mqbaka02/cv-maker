@@ -11,7 +11,12 @@ type infoType= {
     email: string;
 };
 
+type summaryType= {
+    summary:string
+};
+
 type valuesType= infoType
+& summaryType
 & {};
 
 

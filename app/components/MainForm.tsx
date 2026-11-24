@@ -10,6 +10,7 @@ import { useNotifications } from "../context/useNotificationContext";
 import { valuesType } from "../types/data";
 import { useState } from "react";
 import { PhoneInput } from "@/components/reui/phone-input";
+import { TextArea } from "@/untitledui/base/textarea/textarea";
 
 
 const initialValues: valuesType= {
@@ -23,6 +24,7 @@ const initialValues: valuesType= {
     number1: "",
     number2: "",
     email: "",
+    summary: "",
 };
 
 export default function MainForm() {
@@ -98,23 +100,23 @@ export default function MainForm() {
             <button className="active:bg-white text-black bg-red-500 p-1 px-2 rounded-sm" onClick={cleanOutput}>Clean</button>
         </div>
         <div className="flex flex-col md:flex-row gap-1">
-            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" />
-            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" />
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
         </div>
         <div className="flex flex-col md:flex-row gap-1">
-            <Input label="Job Title" value={values.jobTitle} onChange={setter["jobTitle"]} name="jobTitle" />
+            <Input label="Job Title" value={values.jobTitle} onChange={setter["jobTitle"]} name="jobTitle" size="sm" />
         </div>
         <div className="flex flex-col md:flex-row gap-1">
-            <Input label="Country" value={values.country} onChange={setter["country"]} name="country" />
+            <Input label="Country" value={values.country} onChange={setter["country"]} name="country" size="sm" />
         </div>
         <div className="flex flex-col md:flex-row gap-1">
-            <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" />
-            <Input label="County" value={values.county} onChange={setter["county"]} name="county" />
-            <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" />
+            <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" size="sm" />
+            <Input label="County" value={values.county} onChange={setter["county"]} name="county" size="sm" />
+            <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" size="sm" />
         </div>
         <div className="flex flex-col md:flex-row gap-1 items-stretch">
-            <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/2"} />
-            <div className="flex-col gap-1 flex h-full justify-between">
+            <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/3"} size="sm" />
+            <div className="flex-col gap-1 flex h-full justify-between self-end">
                 <label htmlFor="phone1" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Primary Phone Number</label>
                 <PhoneInput
                     value={values.number1}
@@ -124,7 +126,7 @@ export default function MainForm() {
                     variant="lg"
                 />
             </div>
-            <div className="flex-col gap-1 flex h-full justify-between">
+            <div className="flex-col gap-1 flex h-full justify-between self-end">
                 <label htmlFor="phone2" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Secondary Phone Number</label>
                 <PhoneInput
                     value={values.number2}
@@ -135,5 +137,6 @@ export default function MainForm() {
                 />
             </div>
         </div>
+        <TextArea rows={5} value={values.summary} onChange={setter["summary"]} label="Summary" placeholder="Describe yourself in a paragraph"/>
     </div>;
 };

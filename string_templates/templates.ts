@@ -2,6 +2,7 @@ import { infoType } from "@/app/types/data";
 
 const buildInfoSnipet= (info: infoType)=> {
     return `
+
 %----------------------%
 % Title & Contact Info
 %----------------------%
@@ -13,6 +14,18 @@ const buildInfoSnipet= (info: infoType)=> {
     \\href{mailto:${info.email}}{${info.email}} \\\\[6pt]
     \\rule{\\textwidth}{0.4pt} % horizontal separation line
 \\end{center}
+
+    `;
+};
+
+const buildSummarySnippet= (summary: string)=> {
+    return `
+
+%----------------------%
+% Personal Summary (no section title)
+%----------------------%
+${summary}
+
     `;
 };
 
@@ -31,5 +44,6 @@ const templateMappings= {
 
 export {
     buildInfoSnipet,
+    buildSummarySnippet,
     templateMappings,
 };
