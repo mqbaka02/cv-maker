@@ -3,14 +3,13 @@
 import { Input } from "@/untitledui/base/input/input";
 import useValues from "../hooks/useValues";
 
+import { PhoneInput } from "@/components/reui/phone-input";
 import compileLatex from "@/latex_commands/compile";
 import save from "@/latex_commands/save";
 import clean from "@/lib/clean";
+import { TextArea } from "@/untitledui/base/textarea/textarea";
 import { useNotifications } from "../context/useNotificationContext";
 import { valuesType } from "../types/data";
-import { useState } from "react";
-import { PhoneInput } from "@/components/reui/phone-input";
-import { TextArea } from "@/untitledui/base/textarea/textarea";
 
 
 const initialValues: valuesType= {
@@ -29,7 +28,7 @@ const initialValues: valuesType= {
 
 export default function MainForm() {
 
-    const { values, setter } = useValues(initialValues);
+    const { values, setter } = useValues(initialValues, {useDraft: true, storageName:"TempData"});
 
     const {addNotification}= useNotifications();
 
