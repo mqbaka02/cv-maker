@@ -1,0 +1,57 @@
+.smooth-label-width {
+    display: grid;
+    grid-template-columns: auto 0fr;
+    transition: all .3s ease-in-out;
+}
+
+.smooth-label-width.active {
+    grid-template-columns: auto 1fr;
+}
+
+.overflow-parent:has(.overflow-indicator) {
+    /* container-type: scroll-state; */
+    position: relative;
+    overflow: hidden;
+}
+
+.overflow-indicator {
+    container-type: scroll-state;
+}
+
+.overflow-indicator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    z-index: 99;
+    background-image: linear-gradient(to left, transparent, transparent);
+    pointer-events: none;
+    border-radius: 10px;
+}
+.overflow-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    z-index: 99;
+    pointer-events: none;
+    border-radius: 10px;
+        background-image: linear-gradient(to right, transparent, transparent);
+}
+
+@container scroll-state(scrollable: right) {
+    .overflow-indicator::after {
+        background-image: linear-gradient(to left, #0002, transparent 10%);
+    }
+}
+@container scroll-state(scrollable: left) {
+    .overflow-indicator::before {
+        background-image: linear-gradient(to right, #0002, transparent 10%);
+    }
+}
