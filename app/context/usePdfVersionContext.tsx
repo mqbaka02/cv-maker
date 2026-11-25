@@ -7,7 +7,7 @@ type PdfVersionContextType = {
     version: string;
     refreshPDF: () => void;
     handleViewerReady: (viewer: Viewer) => void;
-    handleDocumentChange: (documentId: string|null) => void;
+    handleDocumentChange: (documentId: string | null) => void;
 };
 
 type SavedView = {
@@ -19,13 +19,14 @@ type SavedView = {
 
 const PDFVersionContext = createContext<PdfVersionContextType | null>(null);
 
-// Delays (ms) at which we check that the view is still what we restored.
-const RESTORE_ATTEMPTS = [0, 100, 300, 700, 1500];
+const POLL_INTERVAL_MS = 50;  // how often we check whether the new document has pages
+const TIMEOUT_MS = 5000;      // stop waiting after this long
 
 function PDFVersionProvider({ children }: { children: React.ReactNode }) {
     const [version, setVersion] = useState("0");
     const viewerRef = useRef<Viewer | null>(null);
     const savedViewRef = useRef<SavedView | null>(null);
+    const runIdRef = useRef(0); // lets a newer document cancel the wait of an older one
 
     const handleViewerReady = useCallback((viewer: Viewer) => {
         viewerRef.current = viewer;
@@ -41,69 +42,43 @@ function PDFVersionProvider({ children }: { children: React.ReactNode }) {
                 pageIndex: stage.getCurrentPageIndex(),
                 viewpoint: stage.getViewpoint(),
             };
-            console.log("[pdf] saved view", savedViewRef.current);
         }
         setVersion(String(Date.now()));
     }, []);
 
-    const handleDocumentChange = useCallback((documentId: string|null) => {
+    const handleDocumentChange = useCallback((documentId: string | null) => {
         const viewer = viewerRef.current;
         const saved = savedViewRef.current;
-        console.log("[pdf] document changed", documentId, "saved:", saved);
         if (!viewer || !saved || !documentId) return;
 
-        const getStage = () =>
+        const runId = ++runIdRef.current;
+        const startedAt = Date.now();
+
+        const tryRestore = () => {
+            if (runId !== runIdRef.current) return; // a newer document took over
+
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            viewer.forDocument(documentId).tryGet("stage") as any;
+            const stage: any = viewer.forDocument(documentId).tryGet("stage");
 
-        const restore = () => {
-            const stage = getStage();
-            if (!stage || stage.getPageCount() === 0) return false;
-
-            const zoomOk =
-                saved.zoomMode === "custom"
-                    ? Math.abs(stage.getZoomLevel() - saved.zoomLevel) < 0.001
-                    : stage.getZoomMode() === saved.zoomMode;
-            const pageOk = stage.getCurrentPageIndex() === saved.pageIndex;
-
-            console.log("[pdf] restore check", {
-                zoomOk,
-                pageOk,
-                now: { zoom: stage.getZoomLevel(), mode: stage.getZoomMode(), page: stage.getCurrentPageIndex() },
-            });
-            if (zoomOk && pageOk) return true;
-
-            if (!zoomOk) {
+            if (stage && stage.getPageCount() > 0) {
+                // Zoom first, then navigate, so the page lands at the final zoom.
                 stage.zoomTo(
                     saved.zoomMode === "custom" ? saved.zoomLevel : { mode: saved.zoomMode },
                 );
-            }
-            stage.goToPage(saved.pageIndex, {
-                viewpoint: saved.viewpoint,
-                behavior: "instant",
-            });
-            return false;
-        };
-
-        // The new document may not have pages yet, so poll until it does,
-        // then keep re-checking for a while in case the Stage resets itself.
-        let attempt = 0;
-        const run = () => {
-            const done = restore();
-            if (done && attempt >= 2) {
+                stage.goToPage(saved.pageIndex, {
+                    viewpoint: saved.viewpoint,
+                    behavior: "instant",
+                });
                 savedViewRef.current = null;
-                console.log("[pdf] view restored");
                 return;
             }
-            attempt++;
-            if (attempt < RESTORE_ATTEMPTS.length) {
-                setTimeout(run, RESTORE_ATTEMPTS[attempt]);
-            } else {
-                savedViewRef.current = null;
-                console.log("[pdf] gave up restoring");
+
+            if (Date.now() - startedAt < TIMEOUT_MS) {
+                setTimeout(tryRestore, POLL_INTERVAL_MS);
             }
         };
-        setTimeout(run, RESTORE_ATTEMPTS[0]);
+
+        tryRestore();
     }, []);
 
     const value = useMemo(
