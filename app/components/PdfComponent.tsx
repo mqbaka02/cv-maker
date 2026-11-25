@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { usePdfVersionContext } from "../context/usePdfVersionContext";
 
 
 const PDFViewer = dynamic(
@@ -9,5 +10,10 @@ const PDFViewer = dynamic(
 );
 
 export default function PdfComponent ({path}: {path: string}) {
-    return <PDFViewer src={path} style={{height: "100vh", width: "100%"}} />;
+    const context= usePdfVersionContext();
+    return <PDFViewer
+        src={`${path}?v=${context.version}`}
+        onReady={context.handleViewerReady}
+        style={{height: "100vh", width: "100%"}}
+    />;
 };

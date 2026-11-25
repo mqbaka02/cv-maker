@@ -10,6 +10,7 @@ import clean from "@/lib/clean";
 import { TextArea } from "@/untitledui/base/textarea/textarea";
 import { useNotifications } from "../context/useNotificationContext";
 import { valuesType } from "../types/data";
+import { usePdfVersionContext } from "../context/usePdfVersionContext";
 
 
 const initialValues: valuesType= {
@@ -31,6 +32,8 @@ export default function MainForm() {
     const { values, setter } = useValues(initialValues, {useDraft: true, storageName:"TempData"});
 
     const {addNotification}= useNotifications();
+    
+    const {refreshPDF}= usePdfVersionContext();
 
     const compile = async () => {
         const result = await compileLatex("./latex/resume.tex");
@@ -41,6 +44,7 @@ export default function MainForm() {
                 type: "success",
                 duration: 5_000
             });
+            refreshPDF();
         } else {
             console.error("Compilation failed:", result.message);
             addNotification({
