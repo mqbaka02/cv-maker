@@ -96,30 +96,30 @@ export default function MainForm() {
     };
 
 
-    return <div className="flex gap-1 flex-col">
+    return <div className="w-full flex gap-1 flex-col @container">
         <div className="flex gap-2">
             <button className="bg-black text-white active:bg-red-500 p-1 px-2 rounded-sm" onClick={compile}>Compile</button>
             <button className="bg-green-500 text-black active:bg-red-500 p-1 px-2 rounded-sm" onClick={saveValues}>Save</button>
             <button className="active:bg-white text-black bg-red-500 p-1 px-2 rounded-sm" onClick={cleanOutput}>Clean</button>
         </div>
-        <div className="flex flex-col md:flex-row gap-1">
+        <div className="flex flex-col @2xl:flex-row gap-1">
             <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
             <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
         </div>
-        <div className="flex flex-col md:flex-row gap-1">
+        <div className="flex flex-col @2xl:flex-row gap-1">
             <Input label="Job Title" value={values.jobTitle} onChange={setter["jobTitle"]} name="jobTitle" size="sm" />
         </div>
-        <div className="flex flex-col md:flex-row gap-1">
+        <div className="flex flex-col @2xl:flex-row gap-1">
             <Input label="Country" value={values.country} onChange={setter["country"]} name="country" size="sm" />
         </div>
-        <div className="flex flex-col md:flex-row gap-1">
+        <div className="flex flex-col @2xl:flex-row gap-1">
             <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" size="sm" />
             <Input label="County" value={values.county} onChange={setter["county"]} name="county" size="sm" />
             <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" size="sm" />
         </div>
-        <div className="flex flex-col md:flex-row gap-1 items-stretch">
+        <div className="flex flex-col @2xl:flex-row gap-1 items-stretch">
             <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/3"} size="sm" />
-            <div className="flex-col gap-1 flex h-full justify-between self-end">
+            <div className="flex-col gap-1 flex h-full justify-between">
                 <label htmlFor="phone1" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Primary Phone Number</label>
                 <PhoneInput
                     value={values.number1}
@@ -129,7 +129,7 @@ export default function MainForm() {
                     variant="lg"
                 />
             </div>
-            <div className="flex-col gap-1 flex h-full justify-between self-end">
+            <div className="flex-col gap-1 flex h-full justify-between">
                 <label htmlFor="phone2" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Secondary Phone Number</label>
                 <PhoneInput
                     value={values.number2}

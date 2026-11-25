@@ -22,15 +22,24 @@ export default function useValues<T extends Record<string, any>>(
         }
     }, [options?.useDraft, options?.storageName]);
 
+    //Debounce the localSorage update by 5 seconds
+    useEffect(()=> {
+        if (!options?.useDraft) return;
+        const t= setTimeout(()=> {
+            if (options?.useDraft) updateLocalStorage(values, options?.storageName);
+        }, 5_000);
+
+        return ()=> {
+            clearTimeout(t);
+        }
+    },[values]);
+
     // Memoize setter so function references stay stable across renders
     const setter = useMemo(() => {
         return (Object.keys(initialValues) as Array<keyof T>).reduce((acc, key) => {
             acc[key] = (value: T[typeof key]) => {
                 setValues((prev) => {
                     const newValues = { ...prev, [key]: value };
-                    if (options?.useDraft) {
-                        updateLocalStorage(newValues, options.storageName);
-                    }
                     return newValues;
                 });
             };
