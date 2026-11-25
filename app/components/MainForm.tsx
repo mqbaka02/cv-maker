@@ -2,7 +2,6 @@
 
 import { Input } from "@/untitledui/base/input/input";
 import useValues from "../hooks/useValues";
-
 import "@/app/styles.css";
 import { PhoneInput } from "@/components/reui/phone-input";
 import compileLatex from "@/latex_commands/compile";
@@ -15,7 +14,9 @@ import { useState } from "react";
 import { Key } from "react-aria-components";
 import { useNotifications } from "../context/useNotificationContext";
 import { usePdfVersionContext } from "../context/usePdfVersionContext";
-import { valuesType } from "../types/data";
+import { SetterMap, singleSkillsetType, skillsType, valuesType } from "../types/data";
+import TabSwitcher from "./tabs/TabSwitcher";
+import { InputTagsOuter } from "@/untitledui/base/input/input-tags-outer";
 
 
 const initialValues: valuesType= {
@@ -30,6 +31,7 @@ const initialValues: valuesType= {
     number2: "",
     email: "",
     summary: "",
+    skillsets: [],
 };
 
 const TabLabel= ({text, icon, isActive= false}:{text: string, icon: React.ReactElement, isActive?: boolean})=> {
@@ -144,47 +146,175 @@ export default function MainForm() {
                 </Tabs.List>
             </Tabs>
         </div>
-        <div className="flex flex-col gap-6 py-2 px-4">
-            <TabTitle title="Basic Info" />
-            <div className="flex flex-col @2xl:flex-row gap-1">
-                <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
-                <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        <TabSwitcher
+            activeKey={selectedTabKey}
+            tabContents={[
+                {element: <BasicInfoForm values={values} setter={setter}/>, key:"thing1"},
+                {element: <SkillsForm values={values} setter={setter}/>, key:"thing3"},
+                {element: <ExperienceForm values={values} setter={setter}/>, key:"thing2"},
+                {element: <EducationForm values={values} setter={setter}/>, key:"thing4"},
+                {element: <LangForm values={values} setter={setter}/>, key:"thing5"},
+                {element: <PortfolioForm values={values} setter={setter}/>, key:"thing6"},
+                {element: <ReferencesForm values={values} setter={setter}/>, key:"thing7"},
+                {element: <OthersForm values={values} setter={setter}/>, key:"thing8"},
+            ]}
+        />
+    </div>;
+};
+
+const BasicInfoForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Basic Info" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        </div>
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="Job Title" value={values.jobTitle} onChange={setter["jobTitle"]} name="jobTitle" size="sm" />
+        </div>
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="Country" value={values.country} onChange={setter["country"]} name="country" size="sm" />
+        </div>
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" size="sm" />
+            <Input label="County" value={values.county} onChange={setter["county"]} name="county" size="sm" />
+            <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" size="sm" />
+        </div>
+        <div className="flex flex-col @2xl:flex-row gap-1 items-stretch">
+            <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/3"} size="sm" />
+            <div className="flex-col gap-1 flex h-full justify-between">
+                <label htmlFor="phone1" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Primary Phone Number</label>
+                <PhoneInput
+                    value={values.number1}
+                    onChange={setter["number1"]}
+                    id="phone1"
+                    name="phone1"
+                    variant="lg"
+                />
             </div>
-            <div className="flex flex-col @2xl:flex-row gap-1">
-                <Input label="Job Title" value={values.jobTitle} onChange={setter["jobTitle"]} name="jobTitle" size="sm" />
+            <div className="flex-col gap-1 flex h-full justify-between">
+                <label htmlFor="phone2" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Secondary Phone Number</label>
+                <PhoneInput
+                    value={values.number2}
+                    onChange={setter["number2"]}
+                    id="phone2"
+                    name="phone2"
+                    variant="lg"
+                />
             </div>
-            <div className="flex flex-col @2xl:flex-row gap-1">
-                <Input label="Country" value={values.country} onChange={setter["country"]} name="country" size="sm" />
-            </div>
-            <div className="flex flex-col @2xl:flex-row gap-1">
-                <Input label="Current City" value={values.city} onChange={setter["city"]} name="city" size="sm" />
-                <Input label="County" value={values.county} onChange={setter["county"]} name="county" size="sm" />
-                <Input label="Postal code" value={values.zipcode} onChange={setter["zipcode"]} name="zipcode" size="sm" />
-            </div>
-            <div className="flex flex-col @2xl:flex-row gap-1 items-stretch">
-                <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/3"} size="sm" />
-                <div className="flex-col gap-1 flex h-full justify-between">
-                    <label htmlFor="phone1" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Primary Phone Number</label>
-                    <PhoneInput
-                        value={values.number1}
-                        onChange={setter["number1"]}
-                        id="phone1"
-                        name="phone1"
-                        variant="lg"
-                    />
-                </div>
-                <div className="flex-col gap-1 flex h-full justify-between">
-                    <label htmlFor="phone2" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Secondary Phone Number</label>
-                    <PhoneInput
-                        value={values.number2}
-                        onChange={setter["number2"]}
-                        id="phone2"
-                        name="phone2"
-                        variant="lg"
-                    />
-                </div>
-            </div>
-            <TextArea rows={5} value={values.summary} onChange={setter["summary"]} label="Summary" placeholder="Describe yourself in a paragraph"/>
+        </div>
+        <TextArea rows={5} value={values.summary} onChange={setter["summary"]} label="Summary" placeholder="Describe yourself in a paragraph" />
+    </div>;
+};
+
+const SkillsForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+    const addSkillSet= ()=> {
+        const newSkillsets= [...values.skillsets];
+        newSkillsets.push({
+            skills: [],
+            skillsetName: "",
+            key: String(Date.now()),
+        });
+        setter["skillsets"](newSkillsets);
+    };
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Skills" />
+        <div className="flex flex-col gap-4">
+            {
+                values.skillsets.map(s=>
+                    <SingleSkillsetForm skills={s.skills} skillset={s.skillsetName} setter={setter} currentSkillsets={values.skillsets} key={s.key} />
+                )
+            }
+            <button className="bg-black text-white active:bg-red-500 p-1 px-2 rounded-sm" onClick={addSkillSet}>+ Add Skillset</button>
+        </div>
+    </div>;
+};
+
+const SingleSkillsetForm= ({skills, skillset, setter, currentSkillsets}: {skills: string[], skillset: string, setter: SetterMap<valuesType>, currentSkillsets: singleSkillsetType[]})=> {
+    const onSkillSetNameChange= (value: string)=> {
+        // const st= setter["skillsets"];
+        const newSkillsets= currentSkillsets.map(s=>
+            s.skillsetName===skillset ?
+            {...s, skillsetName: value}
+            : s
+        );
+        setter["skillsets"](newSkillsets);
+        console.log(value);
+    };
+    const onSkillChange= (value: string[])=> {
+        const newSkillsets= currentSkillsets.map(s=>
+            s.skillsetName===skillset ?
+            {...s, skills: value}
+            : s
+        );
+        setter["skillsets"](newSkillsets);
+    };
+    return <div className="flex flex-col gap-2">
+        <Input label="Skillset Name" value={skillset} placeholder="Enter skillset name" onChange={onSkillSetNameChange} />
+        <InputTagsOuter label="Skills" value={skills} onChange={onSkillChange} placeholder="Enter a skill" />
+    </div>;
+};
+
+
+const ExperienceForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Experience" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        </div>
+    </div>;
+};
+const EducationForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Education" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        </div>
+    </div>;
+};
+const LangForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Languages" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        </div>
+    </div>;
+};
+const PortfolioForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Portfolio" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        </div>
+    </div>;
+};
+const ReferencesForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="References" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
+        </div>
+    </div>;
+};
+const OthersForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
+
+    return <div className="flex flex-col gap-6 py-2 px-4">
+        <TabTitle title="Others" />
+        <div className="flex flex-col @2xl:flex-row gap-1">
+            <Input label="First name" value={values.firstname} onChange={setter["firstname"]} name="firstname" size="sm" />
+            <Input label="Last name" value={values.lastname} onChange={setter["lastname"]} name="lastname" size="sm" />
         </div>
     </div>;
 };

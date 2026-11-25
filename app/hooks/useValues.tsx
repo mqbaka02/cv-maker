@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-
-type SetterMap<T> = {
-    [K in keyof T]: (value: T[K]) => void;
-};
+import { SetterMap } from "../types/data";
 
 export default function useValues<T extends Record<string, any>>(
     initialValues: T,
@@ -35,11 +32,12 @@ export default function useValues<T extends Record<string, any>>(
     },[values]);
 
     // Memoize setter so function references stay stable across renders
-    const setter = useMemo(() => {
+    const setter= useMemo(() => {
         return (Object.keys(initialValues) as Array<keyof T>).reduce((acc, key) => {
             acc[key] = (value: T[typeof key]) => {
                 setValues((prev) => {
                     const newValues = { ...prev, [key]: value };
+                    console.log("key", value);
                     return newValues;
                 });
             };
