@@ -17,6 +17,7 @@ import { usePdfVersionContext } from "../context/usePdfVersionContext";
 import { SetterMap, singleSkillsetType, skillsType, valuesType } from "../types/data";
 import TabSwitcher from "./tabs/TabSwitcher";
 import { InputTagsOuter } from "@/untitledui/base/input/input-tags-outer";
+import { DeleteIcon, TrashIcon } from "lucide-react";
 
 
 const initialValues: valuesType= {
@@ -251,8 +252,15 @@ const SingleSkillsetForm= ({skills, skillset, setter, currentSkillsets}: {skills
         );
         setter["skillsets"](newSkillsets);
     };
+    const deleteSkillSet= ()=> {
+        const newSkillsets= currentSkillsets.filter(s=> s.skillsetName!== skillset);
+        setter["skillsets"](newSkillsets);
+    };
     return <div className="flex flex-col gap-2">
-        <Input label="Skillset Name" value={skillset} placeholder="Enter skillset name" onChange={onSkillSetNameChange} />
+        <div className="flex flex-row gap-2">
+            <Input label="Skillset Name" value={skillset} placeholder="Enter skillset name" onChange={onSkillSetNameChange} className={"grow w-full"}/>
+            <button className="active:bg-white text-black bg-red-500 p-2 px-2 rounded-sm self-start cursor-pointer" onClick={deleteSkillSet}><TrashIcon className="w-5 h-5" /></button>
+        </div>
         <InputTagsOuter label="Skills" value={skills} onChange={onSkillChange} placeholder="Enter a skill" />
     </div>;
 };

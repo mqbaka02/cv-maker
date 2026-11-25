@@ -1,4 +1,4 @@
-import { infoType } from "@/app/types/data";
+import { infoType, singleSkillsetType } from "@/app/types/data";
 
 const buildInfoSnipet= (info: infoType)=> {
     return `
@@ -29,6 +29,27 @@ ${summary}
     `;
 };
 
+const buildSkillsSnippet= (skillsets: singleSkillsetType[])=> {
+
+    let snippetString= `
+
+%----------------------%
+\\sectionline{Compétences}
+\\begin{itemize}
+`;
+    skillsets.forEach(skillSet=> {
+        snippetString+= `
+
+\\item \\textbf{${skillSet.skillsetName} :} ${skillSet.skills.join(", ")}
+
+`
+    });
+
+    snippetString+= "\\end{itemize}";
+
+    return snippetString;
+};
+
 //This maps the templates to the files in which they should be written
 const templateMappings= {
     info: "./latex/parts/info.tex",
@@ -45,5 +66,6 @@ const templateMappings= {
 export {
     buildInfoSnipet,
     buildSummarySnippet,
+    buildSkillsSnippet,
     templateMappings,
 };

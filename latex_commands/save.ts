@@ -1,13 +1,14 @@
 "use server";
 
 import { valuesType } from "@/app/types/data";
-import { saveInfo, saveSummary } from "@/lib/saverSnippets";
+import { saveInfo, saveSkills, saveSummary } from "@/lib/saverSnippets";
 
 export default async function save(data: valuesType) {
     
     try{
         await saveInfo(data);
         await saveSummary(data.summary);
+        await saveSkills(data.skillsets);
 
         return {success: true, message: "Info have been saved!"};
     } catch (error: any) {
