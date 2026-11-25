@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // serverExternalPackages: ["@embedpdf/viewer-react"],
 };
 
 export default nextConfig;
