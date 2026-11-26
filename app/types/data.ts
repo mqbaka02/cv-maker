@@ -35,7 +35,8 @@ type singleExperienceType= {
     },
     startDate: string,
     endDate?: string,
-    descriptions: string[],
+    descriptions: {key: string, mission: string}[],
+    isCurrent: boolean,
 };
 
 type experienceType= {
