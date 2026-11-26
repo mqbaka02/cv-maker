@@ -16,18 +16,36 @@ type summaryType= {
 };
 
 type singleSkillsetType= {
+    key: string,
     skillsetName: string,
     skills: string[],
-    key: string,
 };
 
 type skillsType= {
     skillsets: singleSkillsetType[];
 };
 
+type singleExperienceType= {
+    key: string,
+    positionName: string,
+    companyName: string,
+    location: {
+        city: string,
+        country: string,
+    },
+    startDate: string,
+    endDate?: string,
+    descriptions: string[],
+};
+
+type experienceType= {
+    experiences: singleExperienceType[],
+};
+
 type valuesType= infoType
 & summaryType
 & skillsType
+& experienceType
 & {};
 
 type SetterMap<T> = {
@@ -41,5 +59,7 @@ export type {
     SetterMap,
     singleSkillsetType,
     skillsType,
+    singleExperienceType,
+    experienceType,
     summaryType,
 }
