@@ -4,6 +4,7 @@ import { PhoneInput } from "@/components/reui/phone-input";
 import { Input } from "@/untitledui/base/input/input";
 import { TextArea } from "@/untitledui/base/textarea/textarea";
 import TabTitle from "./TabTitle";
+import LabelAndField from "./LabelAndField";
 
 
 const BasicInfoForm = ({values, setter}: {values: valuesType, setter: SetterMap<valuesType>}) => {
@@ -27,8 +28,10 @@ const BasicInfoForm = ({values, setter}: {values: valuesType, setter: SetterMap<
         </div>
         <div className="flex flex-col @2xl:flex-row gap-1 items-stretch">
             <Input label="Email" value={values.email} onChange={setter["email"]} name="email" className={"flex-1/3"} size="sm" />
-            <div className="flex-col gap-1 flex h-full justify-between">
-                <label htmlFor="phone1" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Primary Phone Number</label>
+            <LabelAndField
+                label="Primary Phone Number"
+                identifier="phone1"
+            >
                 <PhoneInput
                     value={values.number1}
                     onChange={setter["number1"]}
@@ -36,9 +39,11 @@ const BasicInfoForm = ({values, setter}: {values: valuesType, setter: SetterMap<
                     name="phone1"
                     variant="lg"
                 />
-            </div>
-            <div className="flex-col gap-1 flex h-full justify-between">
-                <label htmlFor="phone2" className="flex cursor-default items-center gap-0.5 text-sm font-medium text-secondary">Secondary Phone Number</label>
+            </LabelAndField>
+            <LabelAndField
+                label="Secondary Phone Number"
+                identifier="phone2"
+            >
                 <PhoneInput
                     value={values.number2}
                     onChange={setter["number2"]}
@@ -46,10 +51,11 @@ const BasicInfoForm = ({values, setter}: {values: valuesType, setter: SetterMap<
                     name="phone2"
                     variant="lg"
                 />
-            </div>
+            </LabelAndField>
         </div>
         <TextArea rows={5} value={values.summary} onChange={setter["summary"]} label="Summary" placeholder="Describe yourself in a paragraph" />
     </div>;
 };
+
 
 export default BasicInfoForm;

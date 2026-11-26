@@ -17,6 +17,9 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.3.0)
+      '@internationalized/date':
+        specifier: ^3.12.4
+        version: 3.12.4
       '@react-stately/utils':
         specifier: ^3.12.1
         version: 3.12.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -44,6 +47,9 @@ importers:
       react:
         specifier: 19.3.0
         version: 19.3.0
+      react-aria:
+        specifier: ^3.53.1
+        version: 3.53.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       react-aria-components:
         specifier: ^1.21.1
         version: 1.22.1(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
