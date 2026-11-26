@@ -1,4 +1,13 @@
-import { infoType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
+import { infoType, singleEducationType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
+
+const formatIsoDateToSrting= (dateString: string)=> {
+    const t= new Date(dateString);
+    return t.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+    });
+};
 
 const buildInfoSnipet= (info: infoType)=> {
     return `
@@ -57,17 +66,12 @@ const buildExperienceSnippet= (experience: singleExperienceType[])=> {
 \\sectionline{Experience}
 `;
     experience.forEach(exp=> {
-        const startDateString= (new Date(exp.startDate)).toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-            timeZone: "UTC",
-        });
-        const endDateString= exp.endDate? exp.isCurrent ? 'Current' : (new Date(exp.endDate)).toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-            timeZone: "UTC",
-        })
-        : 'Current';
+        const startDateString= formatIsoDateToSrting(exp.startDate);
+        const endDateString= exp.endDate
+            ?exp.isCurrent
+                ?'Current'
+                :formatIsoDateToSrting(exp.endDate)
+            :'Current';
         snippetString+= `
 \\subsection*{\\textbf{${exp.positionName}} -- \\textit{${exp.companyName}, ${exp.location.city}, ${exp.location.country}} \\hfill ${startDateString} -- ${endDateString}}
 \\begin{itemize}
@@ -83,6 +87,29 @@ const buildExperienceSnippet= (experience: singleExperienceType[])=> {
 
 `;
     });
+
+    return snippetString;
+};
+
+const buildEducationSnippet= (education: singleEducationType[])=> {
+    let snippetString= `
+
+%----------------------%
+\\begin{samepage}
+    \\sectionline{\\'Education}\\nopagebreak
+
+    `;
+
+    education.forEach(educ=> {
+        snippetString+= `
+    \\subsection*{\\textbf{${educ.degree}} -- \\textit{${educ.school}, ${educ.location}} \\hfill ${formatIsoDateToSrting(educ.date)}}
+
+        `;
+    });
+
+    snippetString+= `
+\\end{samepage}
+`;
 
     return snippetString;
 };
@@ -105,5 +132,6 @@ export {
     buildSummarySnippet,
     buildSkillsSnippet,
     buildExperienceSnippet,
+    buildEducationSnippet,
     templateMappings,
 };

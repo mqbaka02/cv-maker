@@ -1,6 +1,6 @@
-import { buildExperienceSnippet, buildInfoSnipet, buildSkillsSnippet, buildSummarySnippet, templateMappings } from "@/string_templates/templates";
+import { buildEducationSnippet, buildExperienceSnippet, buildInfoSnipet, buildSkillsSnippet, buildSummarySnippet, templateMappings } from "@/string_templates/templates";
 import { writeIntoFile } from "./writeFile";
-import { infoType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
+import { infoType, singleEducationType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
 
 const saveInfo= async (info: infoType)=> {
     const latex_snippet= buildInfoSnipet(info);
@@ -26,9 +26,16 @@ const saveExperiences= async (experiences: singleExperienceType[])=> {
     return await writeIntoFile(latex_snippet, templateMappings.experience);
 };
 
+const saveEducation= async (education: singleEducationType[])=> {
+    const latex_snippet= buildEducationSnippet(education);
+
+    return await writeIntoFile(latex_snippet, templateMappings.education);
+};
+
 export {
     saveInfo,
     saveSummary,
     saveSkills,
     saveExperiences,
+    saveEducation,
 };

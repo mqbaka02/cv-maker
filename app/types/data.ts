@@ -43,10 +43,23 @@ type experienceType= {
     experiences: singleExperienceType[],
 };
 
+type singleEducationType= {
+    key: string,
+    degree: string,
+    school: string,
+    location: string,
+    date: string,
+};
+
+type educationType= {
+    education: singleEducationType[],
+};
+
 type valuesType= infoType
 & summaryType
 & skillsType
 & experienceType
+& educationType
 & {};
 
 type SetterMap<T> = {
@@ -62,5 +75,7 @@ export type {
     skillsType,
     singleExperienceType,
     experienceType,
+    singleEducationType,
+    educationType,
     summaryType,
 }
