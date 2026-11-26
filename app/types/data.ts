@@ -55,11 +55,22 @@ type educationType= {
     education: singleEducationType[],
 };
 
+type langType= {
+    key: string,
+    lang: string,
+    level: "beginner"| "intermediate"| "fluent"| "native/bilingual",
+};
+
+type languages= {
+    languages: langType[],
+};
+
 type valuesType= infoType
 & summaryType
 & skillsType
 & experienceType
 & educationType
+& languages
 & {};
 
 type SetterMap<T> = {
@@ -77,5 +88,6 @@ export type {
     experienceType,
     singleEducationType,
     educationType,
+    langType,
     summaryType,
 }

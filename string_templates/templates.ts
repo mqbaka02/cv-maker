@@ -1,4 +1,4 @@
-import { infoType, singleEducationType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
+import { infoType, langType, singleEducationType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
 
 const formatIsoDateToSrting= (dateString: string)=> {
     const t= new Date(dateString);
@@ -114,6 +114,25 @@ const buildEducationSnippet= (education: singleEducationType[])=> {
     return snippetString;
 };
 
+const buildLangSnippet= (languages: langType[])=> {
+    let snippetString= `
+
+%----------------------%
+\\sectionline{Languages}
+\\begin{itemize}
+`;
+    languages.forEach(lang=> {
+        snippetString+= `
+        \\item ${lang.lang} -- ${lang.level.charAt(0).toUpperCase() + lang.level.slice(1)}
+`;
+    });
+    snippetString+= `
+
+\\end{itemize}
+`;
+    return snippetString;
+};
+
 //This maps the templates to the files in which they should be written
 const templateMappings= {
     info: "./latex/parts/info.tex",
@@ -133,5 +152,6 @@ export {
     buildSkillsSnippet,
     buildExperienceSnippet,
     buildEducationSnippet,
+    buildLangSnippet,
     templateMappings,
 };

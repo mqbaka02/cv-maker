@@ -38,6 +38,7 @@ const initialValues: valuesType= {
     skillsets: [],
     experiences: [],
     education: [],
+    languages: [],
 };
 
 const TabLabel= ({text, icon, isActive= false}:{text: string, icon: React.ReactElement, isActive?: boolean})=> {
