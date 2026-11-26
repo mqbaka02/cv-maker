@@ -3,16 +3,17 @@ import React from "react";
 import { Key } from "react-aria-components";
 import TabTitle from "./TabTitle";
 
-function ExtensibleFormArray<T extends {key: Key}, S> ({addOne, title, SingleForm, values, addText, setter}: {
+function ExtensibleFormArray<T extends {key: Key}, S> ({addOne, title, SingleForm, values, addText, setter, icon}: {
     addOne: ()=> void,
     title: string,
     SingleForm: React.FC<{setter: SetterMap<S>, value: T, currentValues: T[]}>,
     values: T[],
     addText: string,
-    setter: SetterMap<S>
+    setter: SetterMap<S>,
+    icon: React.ReactNode
 }) {
     return <div className="flex flex-col gap-6 py-2 px-4">
-        <TabTitle title={title} />
+        <TabTitle title={title} icon={icon} />
         <div className="flex flex-col gap-4">
             {
                 values.map((s, i)=>

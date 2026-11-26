@@ -2,7 +2,7 @@ import "@/app/styles.css";
 import { SetterMap, singleExperienceType, valuesType } from "@/app/types/data";
 import { Input } from "@/untitledui/base/input/input";
 import ExtensibleFormArray from "./ExtensibleFormArray";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { BriefcaseIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { DatePicker } from "@/untitledui/application/date-picker/date-picker";
 import LabelAndField from "./LabelAndField";
 import { Checkbox } from "@/untitledui/base/checkbox/checkbox";
@@ -36,6 +36,7 @@ const ExperienceForm = ({values, setter}: {values: valuesType, setter: SetterMap
         values={values.experiences}
         addText="Add Experience"
         setter={setter}
+        icon={<BriefcaseIcon className="w-10 h-10" />}
     />;
 };
 

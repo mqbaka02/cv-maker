@@ -4,6 +4,7 @@ import { Input } from "@/untitledui/base/input/input";
 import { InputTagsOuter } from "@/untitledui/base/input/input-tags-outer";
 import { TrashIcon } from "lucide-react";
 import ExtensibleFormArray from "./ExtensibleFormArray";
+import { WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
 
 
 const SkillsForm = ({values, setter}: {
@@ -27,6 +28,7 @@ const SkillsForm = ({values, setter}: {
         values={values.skillsets}
         addText="Add Skillset"
         setter={setter}
+        icon={<WrenchScrewdriverIcon className="w-10 h-10" />}
     />;
 };
 
