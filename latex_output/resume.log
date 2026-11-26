@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.10.25)  26 NOV 2026 10:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.10.25)  26 NOV 2026 15:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -344,18 +344,18 @@ LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
 )
 (./latex/parts/experience.tex
 LaTeX Font Info:    Font shape `OT1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 5.
+(Font)              scaled to size 11.39996pt on input line 6.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <12> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 5.
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 6.
 LaTeX Font Info:    Font shape `OT1/phv/b/sl' will be
-(Font)              scaled to size 11.39996pt on input line 5.
+(Font)              scaled to size 11.39996pt on input line 6.
 ) (./latex/parts/education.tex)
-(./latex/parts/lang.tex [1
+(./latex/parts/lang.tex) (./latex/parts/portfolio.tex) (./latex/parts/ref.tex)
+(./latex/parts/extra.tex [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-di
-st/fonts/enc/dvips/base/8r.enc}])
-(./latex/parts/portfolio.tex) (./latex/parts/ref.tex) (./latex/parts/extra.tex)
-[2] (/home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/resume.aux)
+st/fonts/enc/dvips/base/8r.enc}]) [2]
+(/home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/resume.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -364,18 +364,18 @@ Package rerunfilecheck Info: File `resume.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 9700 strings out of 476153
- 150740 string characters out of 5794325
- 1941975 words of memory out of 5000000
- 31597 multiletter control sequences out of 15000+600000
+ 9699 strings out of 476153
+ 150732 string characters out of 5794325
+ 1942975 words of memory out of 5000000
+ 31596 multiletter control sequences out of 15000+600000
  569772 words of font info for 51 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,5n,79p,565b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,5n,79p,565b,546s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb>
 Output written on /home/mqbaka/Pros/Latex_CV_maker/latex-cv-maker/latex_output/
-resume.pdf (2 pages, 35627 bytes).
+resume.pdf (2 pages, 35619 bytes).
 PDF statistics:
  41 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream

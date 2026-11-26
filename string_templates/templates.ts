@@ -1,4 +1,4 @@
-import { infoType, singleSkillsetType } from "@/app/types/data";
+import { infoType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
 
 const buildInfoSnipet= (info: infoType)=> {
     return `
@@ -50,6 +50,43 @@ const buildSkillsSnippet= (skillsets: singleSkillsetType[])=> {
     return snippetString;
 };
 
+const buildExperienceSnippet= (experience: singleExperienceType[])=> {
+    let snippetString= `
+
+%----------------------%
+\\sectionline{Experience}
+`;
+    experience.forEach(exp=> {
+        const startDateString= (new Date(exp.startDate)).toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+            timeZone: "UTC",
+        });
+        const endDateString= exp.endDate? exp.isCurrent ? 'Current' : (new Date(exp.endDate)).toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+            timeZone: "UTC",
+        })
+        : 'Current';
+        snippetString+= `
+\\subsection*{\\textbf{${exp.positionName}} -- \\textit{${exp.companyName}, ${exp.location.city}, ${exp.location.country}} \\hfill ${startDateString} -- ${endDateString}}
+\\begin{itemize}
+
+`;
+        exp.descriptions.forEach(desc=> {
+            snippetString+= `
+    \\item ${desc.mission}
+`;
+        });
+        snippetString+= `
+\\end{itemize}
+
+`;
+    });
+
+    return snippetString;
+};
+
 //This maps the templates to the files in which they should be written
 const templateMappings= {
     info: "./latex/parts/info.tex",
@@ -67,5 +104,6 @@ export {
     buildInfoSnipet,
     buildSummarySnippet,
     buildSkillsSnippet,
+    buildExperienceSnippet,
     templateMappings,
 };

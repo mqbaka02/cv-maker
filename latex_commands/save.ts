@@ -1,7 +1,7 @@
 "use server";
 
 import { valuesType } from "@/app/types/data";
-import { saveInfo, saveSkills, saveSummary } from "@/lib/saverSnippets";
+import { saveExperiences, saveInfo, saveSkills, saveSummary } from "@/lib/saverSnippets";
 
 export default async function save(data: valuesType) {
     
@@ -9,10 +9,10 @@ export default async function save(data: valuesType) {
         await saveInfo(data);
         await saveSummary(data.summary);
         await saveSkills(data.skillsets);
+        await saveExperiences(data.experiences);
 
         return {success: true, message: "Info have been saved!"};
     } catch (error: any) {
-        // console.error('Cleaning failed:\n', error.stdout || error.message || error);
         return {success: false, message: "Error while saving: " + (error.stdout || error.message || error)};
   }
 };
