@@ -16,6 +16,11 @@
 
 .overflow-indicator {
     container-type: scroll-state;
+    scrollbar-width: none;
+}
+
+.overflow-indicator::-webkit-scrollbar {
+    display: none;
 }
 
 .overflow-indicator::after {
