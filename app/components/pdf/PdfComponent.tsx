@@ -47,27 +47,34 @@ export default function PdfComponent({ path }: { path: string }) {
         elementsRef.current.get(`page_${target}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
+    //Update the currentPage when the user is scrolling
     useEffect(()=> {
+        //Make this into an array
         const visibleElements= Object.entries(visibleIds);
 
+        // Where to store all the visible ids
         const visibles= [];
-        for (const [id, b] of visibleElements){
-            console.log("CHECKING :", `[${id} : ${b}]`);
-            if (b=== true)
+        for (const [id, bool] of visibleElements){
+            if (bool)
             {
                 visibles.push(id);
-                console.log("TRUE FOR: ", id);
+                // console.log("TRUE FOR: ", id);
             }
         }
         
+        // This function removes the prefix "page_" from a string
+        // Because the key of the pages are `page_${index}`
+        // And we just need the index
         const getIndexFromId= (id: string)=> {
             const prefix= "page_";
             const index= id.indexOf(prefix);
             const stringResult= index!== -1 ? id.slice(index + prefix.length): '';
-            console.log('PAGE STRING :', stringResult);
+            // console.log('PAGE STRING :', stringResult);
             return parseInt(stringResult);
         };
 
+        // Only update the current page if the last current page is not visible anymore
+        // If it is updated everytime a new page appears on view, the number would flicker
         if (visibles.length> 0){
             const visiblePageNumbers= visibles.map(v=> getIndexFromId(v));
             if (!visiblePageNumbers.includes(currentPage))
@@ -167,9 +174,6 @@ export default function PdfComponent({ path }: { path: string }) {
                             {Array.from(new Array(numPages), (_, index)=> (
                                 <div
                                     key={`page_${index + 1}`}
-                                    // ref={(el)=> {
-                                    //     pageRefs.current[index]= el;
-                                    // }}
                                     ref={setRef(`page_${index + 1}`)}
                                     className="shadow-md bg-white mb-4 last:mb-0"
                                 >

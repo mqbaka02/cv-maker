@@ -1,5 +1,9 @@
 import { infoType, langType, singleEducationType, singleExperienceType, singleSkillsetType } from "@/app/types/data";
 
+// very important:
+// Escape those:
+// %, &, $, #, _, { and }
+
 const formatIsoDateToSrting= (dateString: string)=> {
     const t= new Date(dateString);
     return t.toLocaleDateString("en-US", {

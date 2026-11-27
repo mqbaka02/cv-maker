@@ -17,6 +17,7 @@
 /.next/
 /out/
 
+
 # production
 /build
 
@@ -42,4 +43,10 @@ next-env.d.ts
 
 # latex files
 /latex/parts/
+/latex/parts/*
 /latex_output/
+/latex_output/*
+
+# latex sessions
+/workspaces/
+/workspaces/*
