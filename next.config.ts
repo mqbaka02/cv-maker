@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  allowedDevOrigins: ['192.168.88.254'],
   // serverExternalPackages: ["@embedpdf/viewer-react"],
 };
 

@@ -5,7 +5,7 @@ import compileLatex from "@/latex_commands/compile";
 import save from "@/latex_commands/save";
 import clean from "@/lib/clean";
 import { Tabs } from "@/untitledui/application/tabs/tabs";
-import { AcademicCapIcon, BriefcaseIcon, FolderOpenIcon, GlobeEuropeAfricaIcon, IdentificationIcon, TrophyIcon, UsersIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BriefcaseIcon, DocumentIcon, FolderOpenIcon, GlobeEuropeAfricaIcon, IdentificationIcon, TrophyIcon, UsersIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import { Key } from "react-aria-components";
 import { useNotifications } from "../context/useNotificationContext";
@@ -21,6 +21,7 @@ import PortfolioForm from "./subforms/PortfolioForm";
 import ReferencesForm from "./subforms/ReferencesForm";
 import SkillsForm from "./subforms/SkillsForm";
 import TabSwitcher from "./tabs/TabSwitcher";
+import useFloatingPdfContext from "../context/useFloatingPdfViewer";
 
 
 const initialValues: valuesType= {
@@ -131,6 +132,10 @@ export default function MainForm() {
     };
 
     const [selectedTabKey, setSelectedTabKey]= useState<Key>("thing1");
+    const {setOn}= useFloatingPdfContext();
+    const displayDocument= ()=> {
+        setOn(true);
+    };
 
     return <div className="w-full flex gap-8 flex-col @container overflow-y-auto relative h-full">
         <div className="flex flex-col gap-6 bg-white/30 backdrop-blur-sm z-[90] py-2 px-4 grow-0 shadow-sm">
@@ -138,6 +143,7 @@ export default function MainForm() {
                 <button className="bg-black text-white active:bg-red-500 p-1 px-2 rounded-sm" onClick={compile}>Compile</button>
                 <button className="bg-green-500 text-black active:bg-red-500 p-1 px-2 rounded-sm" onClick={saveValues}>Save</button>
                 <button className="active:bg-white text-black bg-red-500 p-1 px-2 rounded-sm" onClick={cleanOutput}>Clean</button>
+                <button className="active:bg-red text-black bg-white border border-black p-1 px-2 rounded-sm lg:hidden block" onClick={displayDocument}><DocumentIcon className="w-6 h-6" /></button>
             </div>
             
             <Tabs selectedKey={selectedTabKey} onSelectionChange={setSelectedTabKey} className={"overflow-parent grow-0"}>
