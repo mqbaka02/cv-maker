@@ -6,7 +6,7 @@ import save from "@/latex_commands/save";
 import clean from "@/lib/clean";
 import { Tabs } from "@/untitledui/application/tabs/tabs";
 import { AcademicCapIcon, BriefcaseIcon, DocumentIcon, FolderOpenIcon, GlobeEuropeAfricaIcon, IdentificationIcon, TrophyIcon, UsersIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Key } from "react-aria-components";
 import { useNotifications } from "../context/useNotificationContext";
 import { usePdfVersionContext } from "../context/usePdfVersionContext";
@@ -72,7 +72,7 @@ export default function MainForm() {
     const {refreshPDF}= usePdfVersionContext();
 
     const compile = async () => {
-        const result = await compileLatex("./latex/resume.tex");
+        const result = await compileLatex();
         if (result.success) {
             addNotification({
                 title: "Done",
@@ -130,6 +130,12 @@ export default function MainForm() {
             });
         }
     };
+
+    useEffect(()=> {
+        (async function initSession () {
+            await fetch("/api/public_session/");
+        }) ();
+    }, []);
 
     const [selectedTabKey, setSelectedTabKey]= useState<Key>("thing1");
     const {setOn}= useFloatingPdfContext();

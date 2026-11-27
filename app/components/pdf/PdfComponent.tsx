@@ -89,6 +89,68 @@ export default function PdfComponent({ path }: { path: string }) {
         onContext.setOn(false);
     };
 
+    const [pdfUrl, setPdfUrl]= useState<string|null>(null);
+    const [loading, setLoading]= useState<boolean>(true);
+    const [errorMessage, setErrorMessage]= useState<string|null>(null);
+
+    useEffect(()=> {
+        let objectUrl: string|null= null;
+        const abortController= new AbortController();
+
+        async function fetchPdf() {
+            setLoading(true);
+            setErrorMessage(null);
+            setPdfUrl(null);
+
+            try {
+                const response= await fetch(`${path}?v=${context.version}`, {signal: abortController.signal});
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        setErrorMessage("No resume has been generated yet.");
+                    } else if (response.status === 401) {
+                        setErrorMessage("Your session has expired. Please refresh the page.");
+                    } else {
+                        setErrorMessage("Unable to retrieve your resume.");
+                    }
+                    return;
+                }
+
+                const blob= await response.blob();
+
+                if (blob.type!== "application/pdf") throw new Error("Invalid PDF response!");
+
+                objectUrl= URL.createObjectURL(blob);
+                setPdfUrl(objectUrl);
+
+            } catch (error) {
+                if (abortController.signal.aborted) return;
+
+                console.log("ERROR WHILE FETCHING: ", error);
+                setErrorMessage("An Error occurred, check console.logs");
+            } finally {
+                if (!abortController.signal.aborted) setLoading(false);
+            }
+        };
+
+        fetchPdf();
+
+        return ()=> {
+            abortController.abort();
+
+            if (objectUrl) URL.revokeObjectURL(objectUrl);
+        };
+    }, [path, context.version]);
+
+    function handleLoadError(error: any) {
+        // pdf.js typically sets name to 'MissingPDFException' or includes status 404
+        if (error?.name === 'MissingPDFException' || error?.status === 404) {
+            setErrorMessage('The requested PDF could not be found (404).');
+        } else {
+            setErrorMessage('Failed to load the PDF document.');
+        }
+    }
+
     return (
         <div className={`w-full min-w-0 bg-[#1f2937] h-[100dvh] min-h-0 transform max-lg:row-start-1 max-lg:col-start-1 ${onContext.on ? 'translate-x-[0%]' : 'translate-x-[100%] lg:translate-x-0'} top-0 left-0 right-0 bottom-0 z-[999] transition-all duration-400`}>
             <div className="absolute top-16 right-4 z-[999] lg:hidden">
@@ -148,13 +210,17 @@ export default function PdfComponent({ path }: { path: string }) {
                     </div>
 
                     {/* Download Link */}
-                    <a
-                        href={path}
-                        download="resume.pdf"
-                        className="px-2 py-1 border rounded hover:bg-neutral-100"
-                    >
-                        <ArrowDownTrayIcon className="w-5 h-5" />
-                    </a>
+                    {
+                        pdfUrl?
+                        <a
+                            href={pdfUrl}
+                            download="resume.pdf"
+                            className="px-2 py-1 border rounded hover:bg-neutral-100"
+                        >
+                            <ArrowDownTrayIcon className="w-5 h-5" />
+                        </a>:
+                        <div className=""></div>
+                    }
                 </div>
 
                 {/* Scrollable PDF Viewport */}
@@ -163,29 +229,46 @@ export default function PdfComponent({ path }: { path: string }) {
                     className="flex-1 w-full min-w-0 overflow-auto p-4"
                 >
                     <div className="w-fit mx-auto flex flex-col gap-4">
-                        <Document
-                            file={`${path}?v=${context.version}`}
-                            onLoadSuccess={({ numPages })=> {
-                                setNumPages(numPages);
-                                setCurrentPage(1);
-                            }}
-                            loading={<div className="py-10 text-neutral-500">Rendering PDF...</div>}
-                        >
-                            {Array.from(new Array(numPages), (_, index)=> (
-                                <div
-                                    key={`page_${index + 1}`}
-                                    ref={setRef(`page_${index + 1}`)}
-                                    className="shadow-md bg-white mb-4 last:mb-0"
-                                >
-                                    <Page
-                                        pageNumber={index + 1}
-                                        width={containerWidth ? Math.floor(containerWidth * scale) : undefined}
-                                        renderTextLayer={true}
-                                        renderAnnotationLayer={true}
-                                    />
-                                </div>
-                            ))}
-                        </Document>
+                        {loading ? (
+                            <div className="py-10 text-neutral-500">
+                                Loading PDF...
+                            </div>
+                        ) : errorMessage ? (
+                            <div role="alert" className="pdf-error">
+                                {errorMessage}
+                            </div>
+                        ) : pdfUrl ? (
+                            <Document
+                                file={`${path}?v=${context.version}`}
+                                onLoadSuccess={({ numPages }) => {
+                                    setNumPages(numPages);
+                                    setCurrentPage(1);
+                                }}
+                                loading={<div className="py-10 text-neutral-500">Rendering PDF...</div>}
+                                onLoadError={handleLoadError}
+                                error={
+                                    <div role="alert" className="pdf-error">
+                                        {errorMessage || 'Failed to load PDF.'}
+                                    </div>
+                                }
+                            >
+                                {Array.from(new Array(numPages), (_, index) => (
+                                    <div
+                                        key={`page_${index + 1}`}
+                                        ref={setRef(`page_${index + 1}`)}
+                                        className="shadow-md bg-white mb-4 last:mb-0"
+                                    >
+                                        <Page
+                                            pageNumber={index + 1}
+                                            width={containerWidth ? Math.floor(containerWidth * scale) : undefined}
+                                            renderTextLayer={true}
+                                            renderAnnotationLayer={true}
+                                        />
+                                    </div>
+                                ))}
+                            </Document>
+                        ) : null
+                        }
                     </div>
                 </div>
             </div>

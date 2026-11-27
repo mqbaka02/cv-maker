@@ -139,15 +139,15 @@ const buildLangSnippet= (languages: langType[])=> {
 
 //This maps the templates to the files in which they should be written
 const templateMappings= {
-    info: "./latex/parts/info.tex",
-    education: "./latex/parts/education.tex",
-    experience: "./latex/parts/experience.tex",
-    extra: "./latex/parts/extra.tex",
-    lang: "./latex/parts/lang.tex",
-    portfolio: "./latex/parts/portfolio.tex",
-    ref: "./latex/parts/ref.tex",
-    skills: "./latex/parts/skills.tex",
-    summary: "./latex/parts/summary.tex",
+    info: "/parts/info.tex",
+    education: "/parts/education.tex",
+    experience: "/parts/experience.tex",
+    extra: "/parts/extra.tex",
+    lang: "/parts/lang.tex",
+    portfolio: "/parts/portfolio.tex",
+    ref: "/parts/ref.tex",
+    skills: "/parts/skills.tex",
+    summary: "/parts/summary.tex",
 };
 
 export {
