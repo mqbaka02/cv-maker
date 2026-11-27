@@ -137,7 +137,7 @@ export default function MainForm() {
         setOn(true);
     };
 
-    return <div className="w-full flex gap-8 flex-col @container overflow-y-auto relative h-full">
+    return <div className="w-full flex gap-8 flex-col @container overflow-y-auto relative h-full row-start-1 col-start-1">
         <div className="flex flex-col gap-6 bg-white/30 backdrop-blur-sm z-[90] py-2 px-4 grow-0 shadow-sm">
             <div className="flex gap-2">
                 <button className="bg-black text-white active:bg-red-500 p-1 px-2 rounded-sm" onClick={compile}>Compile</button>
